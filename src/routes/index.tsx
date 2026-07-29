@@ -125,47 +125,49 @@ function GoldRule() {
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", eventType: "", date: "", location: "", details: "" });
-const [sent, setSent] = useState(false);
-const [submitting, setSubmitting] = useState(false);
-const [submitError, setSubmitError] = useState("");
+  const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const headline = "Bring the Timeless Sound of Sinatra to Your Next Event";
   const words = headline.split(" ");
 
- const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setSubmitting(true);
-  setSubmitError("");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitError("");
 
-  try {
-    const response = await fetch("https://formspree.io/f/mvzeyvrp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        eventType: form.eventType,
-        date: form.date,
-        location: form.location,
-        details: form.details,
-      }),
-    });
+    try {
+      const response = await fetch("https://formspree.io/f/mvzeyvrp", {
+        method: "POST",
+        body: new FormData(e.currentTarget),
+        headers: {
+          Accept: "application/json",
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error("Submission failed");
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        const message = data?.errors
+          ?.map((error: { message?: string }) => error.message)
+          .filter(Boolean)
+          .join(" ");
+
+        throw new Error(message || "We couldn't send your inquiry. Please try again.");
+      }
+
+      setSent(true);
+      setForm({ name: "", email: "", phone: "", eventType: "", date: "", location: "", details: "" });
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "We couldn't send your inquiry. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
     }
-
-    setSent(true);
-  } catch {
-    setSubmitError("Something went wrong. Please try again.");
-  } finally {
-    setSubmitting(false);
-  }
-};
+  };
 
   const close = () => setMenuOpen(false);
 
@@ -550,20 +552,21 @@ const [submitError, setSubmitError] = useState("");
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="hidden" name="_subject" value="New Sounds Like Frank booking inquiry" />
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field label="Name" required>
-                    <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputCls} placeholder="Your name" />
+                    <input required name="name" autoComplete="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputCls} placeholder="Your name" />
                   </Field>
                   <Field label="Phone" required>
-                    <input required type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inputCls} placeholder="(555) 555-5555" />
+                    <input required type="tel" name="phone" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inputCls} placeholder="(555) 555-5555" />
                   </Field>
                 </div>
                 <Field label="Email" required>
-                  <input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} placeholder="you@email.com" />
+                  <input required type="email" name="email" autoComplete="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} placeholder="you@email.com" />
                 </Field>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field label="Event type">
-                    <select value={form.eventType} onChange={(e) => setForm({ ...form, eventType: e.target.value })} className={inputCls}>
+                    <select name="event_type" value={form.eventType} onChange={(e) => setForm({ ...form, eventType: e.target.value })} className={inputCls}>
                       <option value="">Select&hellip;</option>
                       {["Wedding", "Birthday", "Anniversary", "Retirement Party", "Singing Telegram", "Restaurant", "Private Party", "Corporate Event", "Senior / Assisted Living", "Community Event", "Other"].map((o) => (
                         <option key={o} value={o}>{o}</option>
@@ -571,17 +574,26 @@ const [submitError, setSubmitError] = useState("");
                     </select>
                   </Field>
                   <Field label="Event date">
-                    <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className={inputCls} />
+                    <input type="date" name="event_date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className={inputCls} />
                   </Field>
                 </div>
                 <Field label="Location">
-                  <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className={inputCls} placeholder="City, State or venue" />
+                  <input name="location" value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className={inputCls} placeholder="City, State or venue" />
                 </Field>
                 <Field label="Details">
-                  <textarea rows={4} value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} className={inputCls} placeholder="Tell us about your event..." />
+                  <textarea rows={4} name="details" value={form.details} onChange={(e) => setForm({ ...form, details: e.target.value })} className={inputCls} placeholder="Tell us about your event..." />
                 </Field>
-                <button type="submit" className="w-full rounded-full bg-gold py-4 font-semibold text-black shadow transition-all hover:scale-[1.02] hover:shadow-lg">
-                  Request Availability &amp; Quote
+                {submitError && (
+                  <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                    {submitError} If the problem continues, call or text {PHONE}.
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full rounded-full bg-gold py-4 font-semibold text-black shadow transition-all hover:scale-[1.02] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+                >
+                  {submitting ? "Sending..." : "Request Availability & Quote"}
                 </button>
               </form>
             )}
