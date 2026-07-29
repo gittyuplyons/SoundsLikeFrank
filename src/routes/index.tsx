@@ -125,15 +125,47 @@ function GoldRule() {
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", eventType: "", date: "", location: "", details: "" });
-  const [sent, setSent] = useState(false);
+const [sent, setSent] = useState(false);
+const [submitting, setSubmitting] = useState(false);
+const [submitError, setSubmitError] = useState("");
 
   const headline = "Bring the Timeless Sound of Sinatra to Your Next Event";
   const words = headline.split(" ");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setSubmitting(true);
+  setSubmitError("");
+
+  try {
+    const response = await fetch("https://formspree.io/f/mvzeyvrp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        eventType: form.eventType,
+        date: form.date,
+        location: form.location,
+        details: form.details,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Submission failed");
+    }
+
     setSent(true);
-  };
+  } catch {
+    setSubmitError("Something went wrong. Please try again.");
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   const close = () => setMenuOpen(false);
 
