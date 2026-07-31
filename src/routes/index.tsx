@@ -43,16 +43,16 @@ const VIDEOS = [
 const PHOTOS = [
   { url: "https://i.imgur.com/v5wRDVs.jpeg", alt: "George Lyons performing on stage", cls: "md:col-span-2 md:row-span-2" },
   { url: "https://i.imgur.com/VmrKE6x.jpeg", alt: "George Lyons in performance" },
+  { url: "/images/george-luis-tiant-2010.jpg", alt: "George Lyons with Boston Red Sox legend Luis Tiant in 2010" },
   { url: "https://i.imgur.com/0rKwGhC.jpeg", alt: "George Lyons live at an event" },
+  { url: "/images/george-with-guest.jpg", alt: "George Lyons posing with a guest at an event" },
   { url: "https://i.imgur.com/te2yrr9.jpeg", alt: "George Lyons on stage" },
   { url: "https://i.imgur.com/wRZU5Pw.jpeg", alt: "George Lyons entertaining a crowd" },
+  { url: "/images/george-dwight-evans.jpg", alt: "George Lyons with Boston Red Sox legend Dwight Evans" },
   { url: "https://i.imgur.com/lMx88Sb.png", alt: "George Lyons in tuxedo, close up" },
   { url: "https://i.imgur.com/rb3HeZX.jpeg", alt: "George Lyons performing live" },
   { url: "https://cdn.shipper.now/image/teams/cmry1uaf50001la048vt6tpn7/1784863403873-vqq9c6rhiip-IMG_3846.jpg", alt: "George Lyons performing live at a private event" },
   { url: "https://cdn.shipper.now/image/teams/cmry1uaf50001la048vt6tpn7/1784864632620-hqufl6rzvp8-502e991a4e14e.jpg", alt: "George Lyons performing on stage" },
-  { url: "/images/george-with-guest.jpg", alt: "George Lyons posing with a guest at an event", cls: "col-span-2 md:col-span-1" },
-  { url: "/images/george-luis-tiant-2010.jpg", alt: "George Lyons with Boston Red Sox legend Luis Tiant in 2010", cls: "col-span-2 md:col-span-1" },
-  { url: "/images/george-dwight-evans.jpg", alt: "George Lyons with Boston Red Sox legend Dwight Evans", cls: "col-span-2 md:col-span-1" },
 ];
 
 // Real testimonials sourced from George's verified GigSalad / The Bash review pages.
