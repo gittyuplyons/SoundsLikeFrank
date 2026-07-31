@@ -74,9 +74,9 @@ const REVIEWS = [
     source: "The Bash",
   },
   {
-    text: "Without George, the memories and experience just wouldn't have been the same. We highly recommend George for any Sinatra, Dean Martin or Sammy Davis Jr. celebration.",
-    name: "Verified Client",
-    event: "Private Event",
+    text: "George sang at my sister's 40th birthday bash and he was literally the icing on the cake! Loads of Dean and Frank songs. He is an amazing singer, entertainer and person. Loads of charisma and what a voice! He took pictures and videos throughout the performance and sent them to me after the party. So cool! He really enjoys what he does. He is the total package. Also he did travel over an hour for our party so it was so appreciated when he took the gig. We feel like he is family now. I can't say enough.",
+    name: "Elizabeth L. H.",
+    event: "40th Birthday · Crooner",
     source: "GigSalad",
   },
 ];
