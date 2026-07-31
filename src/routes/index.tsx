@@ -50,6 +50,9 @@ const PHOTOS = [
   { url: "https://i.imgur.com/rb3HeZX.jpeg", alt: "George Lyons performing live" },
   { url: "https://cdn.shipper.now/image/teams/cmry1uaf50001la048vt6tpn7/1784863403873-vqq9c6rhiip-IMG_3846.jpg", alt: "George Lyons performing live at a private event" },
   { url: "https://cdn.shipper.now/image/teams/cmry1uaf50001la048vt6tpn7/1784864632620-hqufl6rzvp8-502e991a4e14e.jpg", alt: "George Lyons performing on stage" },
+  { url: "/images/george-with-guest.jpg", alt: "George Lyons posing with a guest at an event", cls: "col-span-2 md:col-span-1" },
+  { url: "/images/george-luis-tiant-2010.jpg", alt: "George Lyons with Boston Red Sox legend Luis Tiant in 2010", cls: "col-span-2 md:col-span-1" },
+  { url: "/images/george-dwight-evans.jpg", alt: "George Lyons with Boston Red Sox legend Dwight Evans", cls: "col-span-2 md:col-span-1" },
 ];
 
 // Real testimonials sourced from George's verified GigSalad / The Bash review pages.
