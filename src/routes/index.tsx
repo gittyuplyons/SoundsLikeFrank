@@ -76,7 +76,7 @@ const REVIEWS = [
   {
     text: "George sang at my sister's 40th birthday bash and he was literally the icing on the cake! Loads of Dean and Frank songs. He is an amazing singer, entertainer and person. Loads of charisma and what a voice! He took pictures and videos throughout the performance and sent them to me after the party. So cool! He really enjoys what he does. He is the total package. Also he did travel over an hour for our party so it was so appreciated when he took the gig. We feel like he is family now. I can't say enough.",
     name: "Elizabeth L. H.",
-    event: "40th Birthday · Crooner",
+    event: "40th Birthday",
     source: "GigSalad",
   },
 ];
